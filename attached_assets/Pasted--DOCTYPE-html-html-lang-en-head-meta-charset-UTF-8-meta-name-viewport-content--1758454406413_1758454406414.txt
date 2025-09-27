@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>happy birthdayy beloved one!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #e1dae8;
+      margin: 0;
+      padding: 0;
+      transition: opacity 0.6s ease-in-out;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header {
+      background-color: rebeccapurple;
+      padding: 20px;
+      color: white;
+      font-size: 1.8em;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+
+    .main-content {
+      margin-top: 120px;
+      padding: 20px;
+    }
+
+    p {
+      font-size: 1.3em;
+      margin: 30px 0;
+      color: #663399;
+      font-weight: 500;
+    }
+
+    img {
+      max-width: 180px;
+      height: auto;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      margin: 20px 0;
+    }
+
+    img:hover {
+      transform: scale(1.05) translateY(-5px);
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #a12310;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      animation: slideIn 0.4s ease-out;
+      max-width: 320px;
+      font-weight: 500;
+    }
+
+    .notification.success {
+      background: #28a745;
+    }
+
+    .countdown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #663399, #9966cc);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .countdown-message {
+      font-size: 1.6em;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .countdown-timer {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 30px 0;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+
+    .time-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .time-number {
+      font-size: 1em;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 15px;
+      min-width: 90px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .time-label {
+      font-size: 0.5em;
+      margin-top: 15px;
+      opacity: 0.9;
+      letter-spacing: 1px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3) rotate(-10deg);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 1;
+      }
+
+      70% {
+        transform: scale(0.95) rotate(-2deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .bounce {
+      animation: bounceIn 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.5s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+  <header>hahahahabedeh! ƪ( ` ▿▿▿▿ ´ ƪ) </header>
+  <div class="main-content">
+    <p id="clickText">click on the cat for your last present! :></p>
+    <img src="foto/meong1.png" alt="black cat" id="cat" />
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const cat = document.getElementById("cat");
+    const clickText = document.getElementById("clickText");
+    let countdownActive = true;
+    let celebrationDone = false;
+    let currentStage = 0; 
+
+    const birthdayDate = new Date(2025, 6, 18, 0, 0, 0); // july 18
+    const audio = new Audio("path/to/your/audio.mp3");
+
+    function createCountdownOverlay() {
+      const overlay = document.createElement("div");
+      overlay.id = "countdownOverlay";
+      overlay.className = "countdown-overlay";
+
+      overlay.innerHTML = `
+        <div class="countdown-message">tungguuu!!</div>
+        <div class="countdown-timer">
+          <div class="time-unit"><div class="time-number" id="days">00</div><div class="time-label">DAYS</div></div>
+          <div class="time-unit"><div class="time-number" id="hours">00</div><div class="time-label">HOURS</div></div>
+          <div class="time-unit"><div class="time-number" id="minutes">00</div><div class="time-label">MINUTES</div></div>
+          <div class="time-unit"><div class="time-number" id="seconds">00</div><div class="time-label">SECONDS</div></div>
+        </div>
+        <div style="font-size:1.1em;margin-top:30px;opacity:0.8;">(make sure you're alone!)</div>
+      `;
+      return overlay;
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = birthdayDate.getTime() - now;
+
+      if (distance <= 0 && !celebrationDone) {
+        countdownActive = false;
+        celebrationDone = true;
+        const overlay = document.getElementById("countdownOverlay");
+        if (overlay) {
+          overlay.style.opacity = "0";
+          setTimeout(() => overlay.remove(), 500);
+        }
+        showNotification("hellooooo!! 💖", "success");
+        launchConfetti();
+        return;
+      }
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        if (daysEl) daysEl.textContent = days.toString().padStart(2, "0");
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, "0");
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, "0");
+        if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, "0");
+      }
+    }
+
+    function startCountdown() {
+      const overlay = createCountdownOverlay();
+      document.body.appendChild(overlay);
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+
+    function showNotification(message, type = "error", duration = 4000) {      
+      const existingNotifications = document.querySelectorAll('.notification');
+      existingNotifications.forEach(notif => notif.remove());
+
+      const notification = document.createElement("div");
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => removeNotification(notification), duration);
+      notification.addEventListener("click", () => removeNotification(notification));
+    }
+
+    function removeNotification(notification) {
+      if (!notification.parentNode) return;
+      notification.style.animation = "slideOut 0.3s ease";
+      setTimeout(() => {
+        if (notification.parentNode) notification.parentNode.removeChild(notification);
+      }, 300);
+    }
+    
+    function smoothTransition(callback, duration = 600) {
+      document.body.style.opacity = "0";
+      setTimeout(callback, duration);
+    }
+
+    function fadeInContent() {
+      document.body.style.opacity = "1";
+    }
+
+      cat.addEventListener("click", handleCakeClick);
+
+    function handleCakeClick() {
+      if (!countdownActive) {
+        if (currentStage === 0) {
+          // First click - stage 1
+          currentStage = 1;
+          revealGiftStage1();
+        } else if (currentStage === 1) {
+          // Second click - stage 2
+          currentStage = 2;
+          revealGiftStage2();
+        }
+      } else {
+        showNotification("wait for the countdown to finish! :<");
+      }
+    }
+
+    function revealGiftStage1() {
+      try {
+        audio.play().catch(() => console.log("Audio play failed"));
+      } catch (e) {
+        console.log("Audio not available");
+      }
+
+      clickText.style.opacity = "0";
+      cat.style.opacity = "0";
+
+      setTimeout(() => {
+        clickText.textContent = "your gift is..... (click again!)";
+        cat.src = "foto/iyakann.png";
+
+        clickText.style.opacity = "1";
+        cat.style.opacity = "1";
+
+        clickText.classList.add("fade-in-up");
+        cate.classList.add("bounce");
+      }, 150);
+    }
+
+    function revealGiftStage2() {
+      smoothTransition(() => {
+        document.body.innerHTML = `
+          <header> XD </header>
+          <div class="main-content">
+            <p class="fade-in-up">!!!!! MEEEE !!!!!</p>
+            <img src="foto/bwaaa.png" alt="Big Surprise" class="bounce" 
+                 style="max-width:250px;height:auto;margin-top:30px;">
+          </div>
+        `;
+        fadeInContent();
+        setTimeout(() => launchConfetti(), 500);
+      });
+    }
+    
+    if (countdownActive) {
+      startCountdown();
+    }
+  </script>
+</body>
+
+</html>
